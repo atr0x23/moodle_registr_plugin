@@ -1,0 +1,1 @@
+[Tue Feb 21 14:59:42.069260 2023] [php7:warn] [pid 244728] [client 127.0.0.1:48578] PHP Warning:  mysqli::__construct(): (HY000/1045): Access denied for user 'moodle-user'@'localhost' (using password: YES) in /var/www/html/moodle/public_html/lib/dml/mysqli_native_moodle_database.php on line 83, referer: http://localhost/install.php
