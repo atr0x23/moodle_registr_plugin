@@ -15,14 +15,14 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * @package     local_registration
- * @author      Thanos
+ * @package     local_message
+ * @author      Kristian
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  * @var stdClass $plugin
  */
 
 defined('MOODLE_INTERNAL') || die();
 
-$plugin->component = 'local_registration';
+$plugin->component = 'local_message';
 $plugin->version = 2020071903;
-$plugin->requires = 20230217; // Moodle version
+$plugin->requires = 2016052300; // Moodle version
