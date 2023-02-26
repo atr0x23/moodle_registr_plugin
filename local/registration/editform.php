@@ -36,30 +36,30 @@
   $mform = new edit_form();
   $fromform = $mform->get_data();
 
-// if($mform->is_cancelled()){
-//     //echo a message
-//     redirect($CFG->wwwroot . '/my', ' You just cancelled and exited from the plugin ! ');
+if($mform->is_cancelled()){
+    //echo a message
+    redirect($CFG->wwwroot . '/my', ' Edit cancelled. You just exited the plugin! ');
 
-// } else if($fromform = $mform->get_data()){
+} else if($fromform = $mform->get_data()){
 
-//     print_r($fromform);
-//     die('the end');
-//     insert the data to the database
-//     $input = new stdClass();
-//     $input->name = $fromform->name;
-//     $input->surname = $fromform->surname;
-//     $input->email = $fromform->email;
-//     $input->country = $fromform->country;
-//     $input->phone = $fromform->phone;
-//     $DB->insert_record('local_registration', $input);
+    // print_r($fromform);
+    // die('the end');
+    
+    //insert the data to the database
+    $input = new stdClass();
+    $input->id = $fromform->id;
+    $input->name = $fromform->name;
+    $input->surname = $fromform->surname;
+    $input->email = $fromform->email;
+    $input->country = $fromform->country;
+    $input->phone = $fromform->phone;
+    $DB->update_record('local_registration', $input);
 
-//     redirect($CFG->wwwroot . '/local/registration/show.php', 'The user has been submited!');
+    redirect($CFG->wwwroot . '/local/registration/show.php', 'Record has been updated!');
 
-// }
+}
 
 
  echo $OUTPUT->header();
   $mform->display();
- // echo $OUTPUT->render_from_template('local_registration/edit',$edituser);
-
  echo $OUTPUT->footer();

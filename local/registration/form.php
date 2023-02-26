@@ -29,6 +29,7 @@
  $PAGE->set_context(\context_system::instance());
  $PAGE->set_title('REGISTER');
  
+
  //we want to display our form
  $mform = new register_form();
 
@@ -55,14 +56,15 @@ if($mform->is_cancelled()){
 
 
  echo $OUTPUT->header();
- // $mform->display();
+  $mform->display();
 
- $templatecontext = (object)[
-    'titletext' => 'Show the user details',
-    'userdetails' => array_values($userdetails),
-    'editurl' => new moodle_url('/local/registration/editform.php'),
-    'createurl' => new moodle_url('/local/registration/form.php'),
- ];
- echo $OUTPUT->render_from_template('local_registration/register', $templatecontext);
+//  $templatecontext = (object)[
+//     'titletext' => 'Add new user',
+//     'submiturl' => new moodle_url('/local/registration/form.php')
+//     // 'userdetails' => array_values($userdetails),
+//     // 'editurl' => new moodle_url('/local/registration/editform.php'),
+//     // 'createurl' => new moodle_url('/local/registration/form.php'),
+//  ];
+//  echo $OUTPUT->render_from_template('local_registration/create', $templatecontext);
 
  echo $OUTPUT->footer();

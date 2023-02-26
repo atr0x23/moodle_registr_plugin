@@ -23,6 +23,7 @@
 require_once(__DIR__ . '/../../config.php');
 
 global $DB;
+global $_GET;
 
 
 $PAGE->set_url(new moodle_url('/local/registration/show.php'));
@@ -39,8 +40,9 @@ echo $OUTPUT->header();
 $templatecontext = (object)[
    'titletext' => 'Show the user details',
    'userdetails' => array_values($userdetails),
-   'editurl' => new moodle_url('/local/registration/editform.php'),
+   'editurl' => new moodle_url('/local/registration/editform.php?id='),
    'createurl' => new moodle_url('/local/registration/form.php'),
+   'deleteurl' => new moodle_url(''),
 ];
 echo $OUTPUT->render_from_template('local_registration/register', $templatecontext);
 

@@ -28,25 +28,30 @@ class edit_form extends moodleform {
     public function definition() {
         global $CFG;
         global $DB;
+        global $_GET;
         $mform = $this->_form; // Don't forget the underscore!
 
         $condition = [
-            "id" => 2,
+            "id" => $id,
          ];
         $fromdb = $DB->get_record('local_registration',$condition,$fields="*",$strictness=IGNORE_MISSING);
-        // $mform->addElement('hidden', 'id');
-        // $mform->setType('id', PARAM_INT);
+        
+
+        $mform->addElement('hidden', 'id');
+        $mform->setType('id', PARAM_INT);
+        $mform->setDefault('id', $fromdb->id);
+        
         $mform->addElement('text', 'name', 'Name');      // Add elements to your form
-        $mform->setType('name', PARAM_NOTAGS);           //Set type of element
-        $mform->setDefault('name', $fromdb->name);    //Default value
+        $mform->setType('name', PARAM_NOTAGS);           // Set type of element
+        $mform->setDefault('name', $fromdb->name);       // Default value
 
         $mform->addElement('text', 'surname', 'Surename');  // An element in the form
-        $mform->setType('surname', PARAM_NOTAGS);           //the type of the element
-        $mform->setDefault('surname', $fromdb->surname); //Default value
+        $mform->setType('surname', PARAM_NOTAGS);           //Set type of element
+        $mform->setDefault('surname', $fromdb->surname);    //Default value
 
         $mform->addElement('text', 'email', 'Email');  // An element in the form
-        $mform->setType('email', PARAM_NOTAGS);           //the type of the element
-        $mform->setDefault('email', $fromdb->email); //Default value
+        $mform->setType('email', PARAM_NOTAGS);        // Ser type of element
+        $mform->setDefault('email', $fromdb->email);   // Default value
 
         // All countries
 
