@@ -21,38 +21,27 @@
  */
 
  require_once(__DIR__ . '/../../config.php');
- require_once($CFG->dirroot . '/local/registration/classes/form/edit-form.php');
 
  
  $PAGE->set_url(new moodle_url('/local/registration/editform.php'));
  $PAGE->set_context(\context_system::instance());
  $PAGE->set_title('EDIT');
- 
-//  //to display our form
-  $mform = new edit_form();
 
-if($mform->is_cancelled()){
-    //echo a message
-    redirect($CFG->wwwroot . '/my', ' Edit cancelled. You just exited the plugin! ');
 
-} else if($fromform = $mform->get_data()){
+ global $CFG;
+ global $DB;
 
-    
-    //insert the data to the database
-    $input = new stdClass();
-    $input->id = $fromform->id;
-    $input->name = $fromform->name;
-    $input->surname = $fromform->surname;
-    $input->email = $fromform->email;
-    $input->country = $fromform->country;
-    $input->phone = $fromform->phone;
-    $DB->update_record('local_registration', $input);
-
-    redirect($CFG->wwwroot . '/local/registration/show.php', 'Record has been updated!');
-
+ if(isset($_GET['r_id'])){
+    $the_record_id = $_GET['r_id']; 
 }
 
+$conditions = array(
+    "id" => $the_record_id,
+);
 
- echo $OUTPUT->header();
-  $mform->display();
- echo $OUTPUT->footer();
+$result = $DB->delete_records('local_registration', $conditions);
+
+if($result){
+
+redirect($CFG->wwwroot . '/local/registration/show.php', 'Record has been deleted!');
+} else die('error');

@@ -28,13 +28,17 @@ class edit_form extends moodleform {
     public function definition() {
         global $CFG;
         global $DB;
-        global $_GET;
         $mform = $this->_form; // Don't forget the underscore!
 
-        $condition = [
-            "id" => $id,
-         ];
-        $fromdb = $DB->get_record('local_registration',$condition,$fields="*",$strictness=IGNORE_MISSING);
+        if(isset($_GET['r_id'])){
+            $the_record_id = $_GET['r_id']; 
+        }
+
+         $conditions = array(
+            "id" => $the_record_id,
+        );
+
+        $fromdb = $DB->get_record('local_registration', $conditions, $fields="*", $strictness=IGNORE_MISSING);
         
 
         $mform->addElement('hidden', 'id');
