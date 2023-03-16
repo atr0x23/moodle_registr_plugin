@@ -31,17 +31,17 @@ class register_form extends moodleform {
         $validName = array('maxlength'=>15, 'minlength'=>3);
         $mform->addElement('text', 'name', 'Name', $validName);      // Add elements to your form
         $mform->setType('name', PARAM_NOTAGS);           // Set type of element
-        $mform->setDefault('name', 'type your name');    // Default value
+        //$mform->setDefault('name', 'type your name');    // Default value
         $mform->addRule('name', 'name is required', 'required', null, 'client' );
 
         $validSurname = array('maxlength'=>30, 'minlength'=>3);
         $mform->addElement('text', 'surname', 'Surename',$validSurname);  // An element in the form
         $mform->setType('surname', PARAM_NOTAGS);           //the type of the element
-        $mform->setDefault('surname', 'type your surname'); //Default value
+        //$mform->setDefault('surname', 'type your surname'); //Default value
 
         $mform->addElement('text', 'email', 'Email');  // An element in the form
         $mform->setType('email', PARAM_NOTAGS);           //the type of the element
-        $mform->setDefault('email', 'type your email'); //Default value
+        //$mform->setDefault('email', 'type your email'); //Default value
         $mform->addRule('email', 'wrong email format', 'email' , null, 'client' );
         $mform->addRule('email', 'email is required', 'required' , null, 'client' );
 
@@ -308,7 +308,6 @@ class register_form extends moodleform {
         $validPhone = array('maxlength'=>10, 'minlength'=>10, 'size'=>10);
         $mform->addElement('text', 'phone', 'Phone', $validPhone);  // An element in the form
         $mform->setType('phone', PARAM_NOTAGS);           //the type of the element
-        $mform->setDefault('phone', 'your phone'); //Default value
         $mform->addRule('phone', 'type only numbers!', 'numeric', null, 'client');
         $mform->addRule('phone', 'phone is required', 'required', null, 'client' );
 

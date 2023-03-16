@@ -38,7 +38,7 @@ $userdetails = $DB->get_records('local_registration');
 echo $OUTPUT->header();
 
 $templatecontext = (object)[
-   'titletext' => 'Show the user details',
+   'titletext' => 'User\'s details',
    'userdetails' => array_values($userdetails),
    'createurl' => new moodle_url('/local/registration/form.php'),
 ];

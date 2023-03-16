@@ -20,42 +20,31 @@
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+ global $CFG;
 require_once("$CFG->libdir/formslib.php");
 
 class edit_form extends moodleform {
 
     //Add elements to form
     public function definition() {
-        global $CFG;
-        global $DB;
+
         $mform = $this->_form; // Don't forget the underscore!
-
-        if(isset($_GET['r_id'])){
-            $the_record_id = $_GET['r_id']; 
-        }
-
-         $conditions = array(
-            "id" => $the_record_id,
-        );
-
-        $fromdb = $DB->get_record('local_registration', $conditions, $fields="*", $strictness=IGNORE_MISSING);
-        
-
         $mform->addElement('hidden', 'id');
         $mform->setType('id', PARAM_INT);
-        $mform->setDefault('id', $fromdb->id);
         
-        $mform->addElement('text', 'name', 'Name');      // Add elements to your form
-        $mform->setType('name', PARAM_NOTAGS);           // Set type of element
-        $mform->setDefault('name', $fromdb->name);       // Default value
+        $validName = array('maxlength'=>15, 'minlength'=>3);
+        $mform->addElement('text', 'name', 'Name', $validName); // Add elements to your form
+        $mform->setType('name', PARAM_NOTAGS);                  // Set type of element
+        $mform->addRule('name', 'name is required', 'required', null, 'client' );
 
-        $mform->addElement('text', 'surname', 'Surename');  // An element in the form
-        $mform->setType('surname', PARAM_NOTAGS);           //Set type of element
-        $mform->setDefault('surname', $fromdb->surname);    //Default value
+        $validSurname = array('maxlength'=>30, 'minlength'=>3);
+        $mform->addElement('text', 'surname', 'Surename',$validSurname);  // An element in the form
+        $mform->setType('surname', PARAM_NOTAGS);                         //Set type of element
 
         $mform->addElement('text', 'email', 'Email');  // An element in the form
         $mform->setType('email', PARAM_NOTAGS);        // Ser type of element
-        $mform->setDefault('email', $fromdb->email);   // Default value
+        $mform->addRule('email', 'wrong email format', 'email' , null, 'client' );
+        $mform->addRule('email', 'email is required', 'required' , null, 'client' );
 
         // All countries
 
@@ -315,11 +304,12 @@ class edit_form extends moodleform {
         );
 
         $mform->addElement('select', 'country', 'Country', $choices);
-        $mform->setDefault('country', $fromdb->country);
 
-        $mform->addElement('text', 'phone', 'Phone');  // An element in the form
+        $validPhone = array('maxlength'=>10, 'minlength'=>10, 'size'=>10);
+        $mform->addElement('text', 'phone', 'Phone', $validPhone);  // An element in the form
         $mform->setType('phone', PARAM_NOTAGS);           //the type of the element
-        $mform->setDefault('phone', $fromdb->phone); //Default value
+        $mform->addRule('phone', 'type only numbers!', 'numeric', null, 'client');
+        $mform->addRule('phone', 'phone is required', 'required', null, 'client' );
 
 
         $this->add_action_buttons();

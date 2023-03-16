@@ -20,10 +20,12 @@
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+ global $DB;
+ global $CFG;
+
  require_once(__DIR__ . '/../../config.php');
  require_once($CFG->dirroot . '/local/registration/classes/form/reg-form.php');
 
- global $DB;
  
  $PAGE->set_url(new moodle_url('/local/registration/form.php'));
  $PAGE->set_context(\context_system::instance());
@@ -35,7 +37,7 @@
 
 if($mform->is_cancelled()){
     //echo a message
-    redirect($CFG->wwwroot . '/my', ' You just cancelled and exited from the plugin ! ');
+    redirect($CFG->wwwroot . '/local/registration/show.php', ' New user registration just cancelled! ');
 
 } else if($fromform = $mform->get_data()){
 

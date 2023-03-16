@@ -20,24 +20,39 @@
  * @license     http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
  */
 
+ global $CFG;
+ global $DB;
+ global $_GET;
+
  require_once(__DIR__ . '/../../config.php');
  require_once($CFG->dirroot . '/local/registration/classes/form/edit-form.php');
+
+ 
 
  
  $PAGE->set_url(new moodle_url('/local/registration/editform.php'));
  $PAGE->set_context(\context_system::instance());
  $PAGE->set_title('EDIT');
  
-//  //to display our form
-  $mform = new edit_form();
+ $mform = new edit_form();
+
+if(isset($_GET['id'])){
+
+ $conditions = [
+  'id' => $_GET['id'],
+];
+
+$fromdb = $DB->get_record('local_registration', $conditions, $fields="*", $strictness=IGNORE_MISSING); //object
+
+//to display our form
+$mform->set_data($fromdb);
+}
 
 if($mform->is_cancelled()){
-    //echo a message
-    redirect($CFG->wwwroot . '/my', ' Edit cancelled. You just exited the plugin! ');
-
-} else if($fromform = $mform->get_data()){
-
-    
+    //redirect and echo a message
+    redirect($CFG->wwwroot . '/local/registration/show.php', ' You just cancelled the edit action! ');
+    die;
+}else if($fromform = $mform->get_data()){
     //insert the data to the database
     $input = new stdClass();
     $input->id = $fromform->id;
